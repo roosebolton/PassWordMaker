@@ -21,9 +21,11 @@ public class PassWordMaker {
     //allCharsNonAmbFirst
     private char[] acnaf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
 
-    private char[] nonSpecNonAmbChars =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9'};
+    //nonSpecNonAmbChars
+    private char[] nsnac =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9'};
 
-    private char[] nonSpecNonNumNoneAmbChars  = {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    //nonSpecNonNumNoneAmbChars
+    private char[] nsnnnac  = {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
     //all chars non first length
     private int acnflength = acnf.length;
@@ -34,19 +36,22 @@ public class PassWordMaker {
     //no chars length
     private int nsclength = nsc.length;
 
+    //nonSpecNonNumLength
+    private int nsnnclength = nsnnc.length;
 
-    private int nonSpecNonNumLength = nsnnc.length;
+    //allCharsNonAmbNonFirstlength
+    private int acnanflength = acnanf.length;
 
-    private int allCharsNonAmbNonFirstLength = acnanf.length;
+    //allCharsNonAmbFirstLength
+    private int acnaflength = acnaf.length;
 
-    private int allCharsNonAmbFirstLength = acnaf.length;
+    //nonSpecNonAmbCHarsLength
+    private int nsnaclength = nsnac.length;
 
-    private int nonSpecNonAmbCharsLength = nonSpecNonAmbChars.length;
+    //nonSpecialNonNumberNonAmbLength
+    private int nsnnaclength = nsnnnac.length;
 
-    private int nonSpecNonNumNoneAmbCharsLength = nonSpecNonNumNoneAmbChars.length;
-
-    private boolean special = true;
-
+    //checks if passwordlength is >8
     private boolean acceptableLength(int passwordlength)throws IllegalArgumentException{
         boolean result = true;
         if(passwordlength<8){
@@ -88,11 +93,11 @@ public class PassWordMaker {
     private char[] nonCharNonNumPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nonSpecNonNumLength);
+        int index1 = ThreadLocalRandom.current().nextInt(0,nsnnclength);
         char firstChar = nsnnc[index1];
         output[0] = firstChar;
         for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nonSpecNonNumLength);
+            int index2 = ThreadLocalRandom.current().nextInt(0,nsnnclength);
             char nextChar = nsnnc[index2];
             output[i] = nextChar;
         }
@@ -103,11 +108,11 @@ public class PassWordMaker {
     private char[] allCharsNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,allCharsNonAmbFirstLength);
+        int index1 = ThreadLocalRandom.current().nextInt(0,acnaflength);
         char firstChar = acnaf[index1];
         output[0] = firstChar;
         for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,allCharsNonAmbNonFirstLength);
+            int index2 = ThreadLocalRandom.current().nextInt(0,acnanflength);
             char nextChar = acnanf[index2];
             output[i] = nextChar;
         }
@@ -117,12 +122,12 @@ public class PassWordMaker {
     private char[] nonCharNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nonSpecNonAmbCharsLength);
-        char firstChar = nonSpecNonAmbChars[index1];
+        int index1 = ThreadLocalRandom.current().nextInt(0,nsnaclength);
+        char firstChar = nsnac[index1];
         output[0] = firstChar;
         for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nonSpecNonAmbCharsLength);
-            char nextChar = nonSpecNonAmbChars[index2];
+            int index2 = ThreadLocalRandom.current().nextInt(0,nsnaclength);
+            char nextChar = nsnac[index2];
             output[i] = nextChar;
         }
         return output;
@@ -132,12 +137,12 @@ public class PassWordMaker {
     private char[] nonCharNonNumNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nonSpecNonNumNoneAmbCharsLength);
-        char firstChar = nonSpecNonNumNoneAmbChars[index1];
+        int index1 = ThreadLocalRandom.current().nextInt(0,nsnnaclength);
+        char firstChar = nsnnnac[index1];
         output[0] = firstChar;
         for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nonSpecNonNumNoneAmbCharsLength);
-            char nextChar = nonSpecNonNumNoneAmbChars[index2];
+            int index2 = ThreadLocalRandom.current().nextInt(0,nsnnaclength);
+            char nextChar = nsnnnac[index2];
             output[i] = nextChar;
         }
         return output;
