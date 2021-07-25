@@ -59,6 +59,8 @@ public class PassWordMaker {
     private int nsnnaclength = nsnnnac.length;
     /////////////////////////End of attributes///////////////////////
 
+
+
     /////////////////////////Constructors///////////////////////
 
     /**
@@ -77,7 +79,11 @@ public class PassWordMaker {
     /////////////////////////End of Constructors///////////////////////
 
 
-
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that consists includes special characters
+     * @throws IllegalArgumentException
+     */
     private char[] allCharPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -92,7 +98,11 @@ public class PassWordMaker {
         return output;
     }
 
-
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that consists excludes special characters
+     * @throws IllegalArgumentException
+     */
     private char[] nonCharPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -107,6 +117,11 @@ public class PassWordMaker {
         return output;
     }
 
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes special characters and numbers
+     * @throws IllegalArgumentException
+     */
     private char[] nonCharNonNumPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -121,7 +136,11 @@ public class PassWordMaker {
         return output;
     }
 
-
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes ambigious characters
+     * @throws IllegalArgumentException
+     */
     private char[] allCharsNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -136,6 +155,11 @@ public class PassWordMaker {
         return output;
     }
 
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes ambigious characters and special characters
+     * @throws IllegalArgumentException
+     */
     private char[] nonCharNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -150,7 +174,11 @@ public class PassWordMaker {
         return output;
     }
 
-
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes amnigious characters, special characters and numbers
+     * @throws IllegalArgumentException
+     */
     private char[] nonCharNonNumNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -165,36 +193,66 @@ public class PassWordMaker {
         return output;
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that includes special characters
+     * @throws IllegalArgumentException
+     */
     public String allCharactersPW(int length)throws
             IllegalArgumentException{
         char[] output = allCharPassword(length);
         return new String(output);
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that ecxludes special characters
+     * @throws IllegalArgumentException
+     */
     public String nonCharPasswordPW(int length)throws
             IllegalArgumentException{
         char[] output = allCharPassword(length);
         return new String(output);
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes special characters and numbers
+     * @throws IllegalArgumentException
+     */
     public String nonCharNonNumPasswordPW(int length)throws
             IllegalArgumentException{
         char[] output = nonCharNonNumPassword(length);
         return new String(output);
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes ambigious characters
+     * @throws IllegalArgumentException
+     */
     public String allCharsNonAmbPW(int length)throws
             IllegalArgumentException{
         char[] output = allCharsNonAmbPassword(length);
         return new String(output);
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes special and ambigious characters
+     * @throws IllegalArgumentException
+     */
     public String nonCharNonAmbPW(int length)throws
             IllegalArgumentException{
         char[] output = nonCharNonAmbPassword(length);
         return new String(output);
     }
 
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes special characters, numbers and ambigious characters
+     * @throws IllegalArgumentException
+     */
     public String nonCharNonNumNonAmbPW(int length)throws
             IllegalArgumentException{
         char[] output = nonCharNonNumNonAmbPassword(length);
