@@ -3,11 +3,13 @@ package gui;
 import javax.swing.*;
 
 public class PassWordGeneratorApp {
-    private JPanel panel1;
     private JButton generateButton;
-    private JTextPane textPane1;
-    private JSpinner spinner1;
-    private JCheckBox checkBox2;
-    private JCheckBox checkBox3;
-    private JCheckBox checkBox1;
+    private JTextPane pwTextPane;
+    private JSpinner spinner;
+    private JCheckBox noNumBox;
+    private JCheckBox noAmbCharBox;
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
