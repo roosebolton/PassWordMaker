@@ -57,18 +57,19 @@ public class Gui extends JFrame {
     private SpinnerModel spinnerModel =
             new SpinnerNumberModel(8, //initial value
                     8, //min
-                    1000, //max
+                    Integer.MAX_VALUE, //max
                     1);                //step
 
     //Spinner to add to middleMiddleMiddle
     private JSpinner spinner = new JSpinner(spinnerModel);
+
 
     //middleSouth contains JLabel with generated password
     private JPanel middleSouthWest = new JPanel();
     private JPanel middleSouthMiddle = new JPanel(new GridLayout(2,1,0,0));
     private JPanel middleSouthEast = new JPanel();
 
-    private JPanel middleMiddleSouthMiddleNorth = new JPanel();
+    private JPanel middleMiddleSouthMiddleNorth = new JPanel(new GridLayout(1,1,2,2));
     private JPanel middleMiddleSouthMiddleSouth = new JPanel();
 
     //Label for generated password title in middleMiddleSouthMiddleNorth
@@ -91,7 +92,6 @@ public class Gui extends JFrame {
     private JPanel southMiddleNorth = new JPanel();
 
     //Checkboxes will be placed in southMiddle
-    private ButtonGroup optionGroup = new ButtonGroup();
     private JCheckBox noSpecCharacters = new JCheckBox("No Special Characters");
     private JCheckBox noNumber = new JCheckBox("No Numbers");
     private JCheckBox noAmbigious = new JCheckBox("No Ambigious Characters");
@@ -155,10 +155,6 @@ public class Gui extends JFrame {
         middleMiddle.add(middleMiddleMiddle);
         middleMiddle.add(middleMiddleEast);
 
-        middleMiddle.add(middleMiddleWest);
-        middleMiddle.add(middleMiddleMiddle);
-        middleMiddle.add(middleMiddleEast);
-
         middleMiddleMiddle.add(spinner);
 
         //middleSouth
@@ -170,17 +166,15 @@ public class Gui extends JFrame {
         middleSouthMiddle.add(middleMiddleSouthMiddleSouth);
 
         middleMiddleSouthMiddleNorth.add(passwordTitle);
+        passwordTitle.setHorizontalAlignment(JLabel.CENTER);
+
         middleMiddleSouthMiddleSouth.add(password);
+        middleMiddleSouthMiddleSouth.setBackground(Color.WHITE);
 
         //Southside
         south.add(southWest);
         south.add(southMiddle);
         south.add(southEast);
-
-        //southMiddle contains checkboxes
-        optionGroup.add(noSpecCharacters);
-        optionGroup.add(noNumber);
-        optionGroup.add(noAmbigious);
 
         southMiddle.add(southMiddleNorth);
 
