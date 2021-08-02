@@ -2,11 +2,17 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import pwlogic.Controller;
 
 /**
  * A gui class that presents an interface to the user for generating a password
  **/
-public class Gui extends JFrame {
+public class Gui extends JFrame{
+
+    //attributes
+    Controller controller;
 
     //attributes for layout
 
@@ -17,7 +23,7 @@ public class Gui extends JFrame {
     private JPanel mainPanel = new JPanel(new GridLayout(3,1,2,2));
     //Three main parts of Main Panel in order
     private JPanel north = new JPanel(new GridLayout(2,0,0,0));
-    private JPanel middle = new JPanel(new GridLayout(3,1,0,0));
+    private JPanel middle = new JPanel(new GridLayout(2,1,0,0));
     private JPanel south = new JPanel(new GridLayout(1,3,0,0));
 
     ///////////////////////////////////////North///////////////////////////////////////////////
@@ -37,13 +43,7 @@ public class Gui extends JFrame {
     ////////////////////////////////////////Middle/////////////////////////////////////////////
 
     private JPanel middleNorth = new JPanel(new GridLayout(1,3,0,0));
-    private JPanel middleMiddle = new JPanel(new GridLayout(1,3,0,0));
     private JPanel middleSouth = new JPanel(new GridLayout(1,3,0,0));
-
-    //middleNorthMiddle contains number of charachters label
-    private JPanel middleNorthWest = new JPanel();
-    private JPanel middleNorthMiddle = new JPanel();
-    private JPanel middleNorthEast = new JPanel();
 
     //numberOfCharactersLabel goes in middleNorthMiddle
     private JLabel numberOfCharactersLabel = new JLabel("Number of Characters");
@@ -62,7 +62,6 @@ public class Gui extends JFrame {
 
     //Spinner to add to middleMiddleMiddle
     private JSpinner spinner = new JSpinner(spinnerModel);
-
 
     //middleSouth contains JLabel with generated password
     private JPanel middleSouthWest = new JPanel();
@@ -107,9 +106,10 @@ public class Gui extends JFrame {
     /**
      *Constructor
      **/
-    public Gui(){
+    public Gui(Controller controller){
         super();
         initialize();
+        this.controller = controller;
     }
 
     /**
@@ -136,25 +136,33 @@ public class Gui extends JFrame {
         northNorth.add(titleLabel);
 
         //northSouth
+
+        //add Listener to generateButton
+        generate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                  int pwLngth = (int) spinner.getValue();
+                  boolean noSpec = noSpecCharacters.isSelected();
+                  boolean noNum = noNumber.isSelected();
+                  boolean noAmb = noAmbigious.isSelected();
+
+                  String result = controller.getPassword(pwLngth,noSpec,noNum,noAmb);
+
+            }
+        });
+
         northSouth.add(generate);
 
         //middleside
         middle.add(middleNorth);
-        middle.add(middleMiddle);
         middle.add(middleSouth);
 
         //middleNorth
-        middleNorth.add(middleNorthWest);
-        middleNorth.add(middleNorthMiddle);
-        middleNorth.add(middleNorthEast);
+        middleNorth.add(middleMiddleWest);
+        middleNorth.add(middleMiddleMiddle);
+        middleNorth.add(middleMiddleEast);
 
-        middleNorthMiddle.add(numberOfCharactersLabel);
-
-        //middleMiddle
-        middleMiddle.add(middleMiddleWest);
-        middleMiddle.add(middleMiddleMiddle);
-        middleMiddle.add(middleMiddleEast);
-
+        middleMiddleMiddle.add(numberOfCharactersLabel);
         middleMiddleMiddle.add(spinner);
 
         //middleSouth
@@ -185,11 +193,11 @@ public class Gui extends JFrame {
     }
 
 
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable(){
           public void run(){
-            Gui frame = new Gui();
+            Controller controller = new Controller();
+            Gui frame = new Gui(controller);
             frame.setVisible(true);
             frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
           }
