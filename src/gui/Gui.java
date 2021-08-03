@@ -75,7 +75,7 @@ public class Gui extends JFrame{
     private JLabel passwordTitle = new JLabel("Generated Password");
 
     //Label that will be used to display generated password in middleMiddleSouthMiddleSouth
-    private JLabel password = new JLabel("");
+    private JTextPane password = new JTextPane();
 
     //////////////////////////////////////End of Middle////////////////////////////////////////
 
@@ -145,9 +145,9 @@ public class Gui extends JFrame{
                   boolean noSpec = noSpecCharacters.isSelected();
                   boolean noNum = noNumber.isSelected();
                   boolean noAmb = noAmbigious.isSelected();
-
+                  password.setText("");
                   String result = controller.getPassword(pwLngth,noSpec,noNum,noAmb);
-
+                  password.setText(result);
             }
         });
 
@@ -176,6 +176,7 @@ public class Gui extends JFrame{
         middleMiddleSouthMiddleNorth.add(passwordTitle);
         passwordTitle.setHorizontalAlignment(JLabel.CENTER);
 
+        password.setEditable(false);
         middleMiddleSouthMiddleSouth.add(password);
         middleMiddleSouthMiddleSouth.setBackground(Color.WHITE);
 

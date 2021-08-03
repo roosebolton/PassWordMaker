@@ -5,43 +5,47 @@ public class Controller {
     //atributes
     private PassWordMaker passWordMaker = new PassWordMaker();
 
-    public String getPassword(int pwLngth, boolean noSpec, boolean noNum, boolean noAmb){
+    private String getPW(int pwLngth, boolean noSpec, boolean noNum, boolean noAmb){
         String answer = "";
-        /////
+        /////no special characters, no numbers and no ambigious chars
         if(noSpec && noNum && noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.nonCharNonNumNonAmbPW(pwLngth);
         }
-        /////
+        /////no Numbers, no ambigious, includes special characters
         if(!noSpec && noNum && noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.allCharNoNumNoAmbPW(pwLngth);
         }
-        //////
+        /////No ambigious characters
         if(!noSpec && !noNum && noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.allCharsNonAmbPW(pwLngth);
         }
-        ///////
+        ///////All characters
         if(!noSpec && !noNum && !noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.allCharactersPW(pwLngth);
         }
-        ///////
+        ///////no special characters, no ambigious characters, inlcudes numbers
         if(noSpec && !noNum && noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.nonCharNonAmbPW(pwLngth);
 
         }
-        ///////
+        ///////no special characters
         if(noSpec && !noNum && !noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.nonCharPasswordPW(pwLngth);
         }
-        ///////
+        ///////no special characters, no numbers, includes ambigious characters
         if(noSpec && noNum && !noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.nonCharNonNumPasswordPW(pwLngth);
         }
-        ///////
+        ///////no numbers
         if(!noSpec && noNum && !noAmb){
-            return passWordMaker.---(pwLngth);
+            return passWordMaker.noNumberPW(pwLngth);
         }
 
         return answer;
     };
+
+    public String getPassword(int pwLngth, boolean noSpec, boolean noNum, boolean noAmb){
+        return getPW(pwLngth,noSpec,noNum,noAmb);
+    }
 
 }

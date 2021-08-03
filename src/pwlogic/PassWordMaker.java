@@ -19,13 +19,19 @@ public class PassWordMaker {
     //Char array that does not include special characters
     private char[] nsc =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'};
 
+    //Char array that not includes numbers and is usable for first characters
+    private char[] nnf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
+
+    //Char array that not includes numbers and is not usable for first characters
+    private char[] nnnf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
+
     //Char array that does not include special characters and numbers
     private char[] nsnnc  = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
     //Char array that excludes special characters that are better not used as first characters and exludes ambigious characters
     private char[] acnanf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
 
-    //Char array that includes special character and excludes special characters
+    //Char array that includes special characters non ambigious usable as first chars
     private char[] acnaf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
 
     //Char array that excludes spcecial characters and ambigious characters
@@ -34,11 +40,25 @@ public class PassWordMaker {
     //Char array that excludes special characters and numbers and ambigious characters
     private char[] nsnnnac  = {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
+    //Char array that excludes special characters that are better not used as first characters and exludes ambigious characters
+    private char[] acnnnambnf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
+
+    //Char array that includes special characters non ambigious usable as first chars
+    private char[] acnnnambf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
+
+
+
     //Length of the acnf array
     private int acnflength = acnf.length;
 
     //aLength of the acf array
     private int acflength = acf.length;
+
+    //Length of the nnf array
+    private int nnflength = nnf.length;
+
+    //Length of the nnnf array
+    private int nnnflength = nnnf.length;
 
     //Length of the nsc array
     private int nsclength = nsc.length;
@@ -57,6 +77,13 @@ public class PassWordMaker {
 
     ///Length of the nsnnnac array
     private int nsnnaclength = nsnnnac.length;
+
+    //Length of the acnnnanf array
+    private int acnnnambflength = acnnnambf.length;
+
+    //Length of the acnnnambnf array
+    private int acnnnambnflength = acnnnambnf.length;
+
     /////////////////////////End of attributes///////////////////////
 
 
@@ -100,18 +127,48 @@ public class PassWordMaker {
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that consists excludes special characters
+     * @return Returns a char array for a password String that consists includes special characters
+     * @throws IllegalArgumentException
+     */
+    private char[] allCharNoNumNoAmbPassword(int pwlength)throws IllegalArgumentException{
+        acceptableLength(pwlength);
+        char[] output = new char[pwlength];
+        int index1 = ThreadLocalRandom.current().nextInt(0,acnnnambflength);
+        char firstChar = acnnnambf[index1];
+        output[0] = firstChar;
+        for(int i = 1; i<pwlength; i++){
+            int index2 = ThreadLocalRandom.current().nextInt(0,acnnnambnflength);
+            char nextChar = acnnnambnf[index2];
+            output[i] = nextChar;
+        }
+        return output;
+    }
+
+    private char[] noNumberPassword (int pwlength)throws IllegalArgumentException{
+        acceptableLength(pwlength);
+        char[] output = new char[pwlength];
+        int index1 = ThreadLocalRandom.current().nextInt(0,nnflength);
+        char firstChar = nnf[index1];
+        output[0] = firstChar;
+        for(int i = 1; i<pwlength; i++){
+            int index2 = ThreadLocalRandom.current().nextInt(0,nnnflength);
+            char nextChar = nnnf[index2];
+            output[i] = nextChar;
+        }
+        return output;
+    }
+
+    /**
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes special characters
      * @throws IllegalArgumentException
      */
     private char[] nonCharPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nsclength);
-        char firstChar = nsc[index1];
-        output[0] = firstChar;
-        for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nsclength);
-            char nextChar = nsc[index2];
+        for(int i = 0; i<pwlength; i++){
+            int index = ThreadLocalRandom.current().nextInt(0,nsclength);
+            char nextChar = nsc[index];
             output[i] = nextChar;
         }
         return output;
@@ -125,12 +182,9 @@ public class PassWordMaker {
     private char[] nonCharNonNumPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nsnnclength);
-        char firstChar = nsnnc[index1];
-        output[0] = firstChar;
-        for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nsnnclength);
-            char nextChar = nsnnc[index2];
+        for(int i = 0; i<pwlength; i++){
+            int index = ThreadLocalRandom.current().nextInt(0,nsnnclength);
+            char nextChar = nsnnc[index];
             output[i] = nextChar;
         }
         return output;
@@ -163,12 +217,9 @@ public class PassWordMaker {
     private char[] nonCharNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nsnaclength);
-        char firstChar = nsnac[index1];
-        output[0] = firstChar;
-        for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nsnaclength);
-            char nextChar = nsnac[index2];
+        for(int i = 0; i<pwlength; i++){
+            int index = ThreadLocalRandom.current().nextInt(0,nsnaclength);
+            char nextChar = nsnac[index];
             output[i] = nextChar;
         }
         return output;
@@ -176,18 +227,15 @@ public class PassWordMaker {
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that excludes amnigious characters, special characters and numbers
+     * @return Returns a char array for a password String that excludes ambigious characters, special characters and numbers
      * @throws IllegalArgumentException
      */
     private char[] nonCharNonNumNonAmbPassword(int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
-        int index1 = ThreadLocalRandom.current().nextInt(0,nsnnaclength);
-        char firstChar = nsnnnac[index1];
-        output[0] = firstChar;
-        for(int i = 1; i<pwlength; i++){
-            int index2 = ThreadLocalRandom.current().nextInt(0,nsnnaclength);
-            char nextChar = nsnnnac[index2];
+        for(int i = 0; i<pwlength; i++){
+            int index = ThreadLocalRandom.current().nextInt(0,nsnnaclength);
+            char nextChar = nsnnnac[index];
             output[i] = nextChar;
         }
         return output;
@@ -206,12 +254,23 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that ecxludes special characters
+     * @return Returns a password String of given length >8 that excludes numbers
+     * @throws IllegalArgumentException
+     */
+    public String noNumberPW(int length)throws
+            IllegalArgumentException{
+        char[] output = noNumberPassword(length);
+        return new String(output);
+    }
+
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes special characters
      * @throws IllegalArgumentException
      */
     public String nonCharPasswordPW(int length)throws
             IllegalArgumentException{
-        char[] output = allCharPassword(length);
+        char[] output = nonCharPassword(length);
         return new String(output);
     }
 
@@ -256,6 +315,17 @@ public class PassWordMaker {
     public String nonCharNonNumNonAmbPW(int length)throws
             IllegalArgumentException{
         char[] output = nonCharNonNumNonAmbPassword(length);
+        return new String(output);
+    }
+
+    /**
+     * @param length
+     * @return Returns a password String of given length >8 that excludes special characters, numbers and ambigious characters
+     * @throws IllegalArgumentException
+     */
+    public String allCharNoNumNoAmbPW(int length)throws
+            IllegalArgumentException{
+        char[] output = allCharNoNumNoAmbPassword(length);
         return new String(output);
     }
 
