@@ -8,10 +8,11 @@ import pwlogic.Controller;
 
 /**
  * A gui class that presents an interface to the user for generating a password
+ * @author roosebolton
  **/
 public class Gui extends JFrame{
 
-    //attributes
+    //Non layout attributes
     Controller controller;
 
     //attributes for layout
@@ -21,13 +22,13 @@ public class Gui extends JFrame{
 
     //Main Panel
     private JPanel mainPanel = new JPanel(new GridLayout(3,1,2,2));
+
     //Three main parts of Main Panel in order
     private JPanel north = new JPanel(new GridLayout(2,0,0,0));
     private JPanel middle = new JPanel(new GridLayout(2,1,0,0));
     private JPanel south = new JPanel(new GridLayout(1,3,0,0));
 
     ///////////////////////////////////////North///////////////////////////////////////////////
-
     //Three main parts of north Panel
     private JPanel northNorth = new JPanel();
     private JPanel northSouth = new JPanel();
@@ -35,70 +36,50 @@ public class Gui extends JFrame{
     //JLabel that goes in northNorth Panel
     private JLabel titleLabel = new JLabel("Password Generator");
 
-    //Button for generating password
+    //JButton for generating password that goes in northSouth Panel
     private JButton generate = new JButton("Generate Password");
-
     /////////////////////////////////////End of North//////////////////////////////////////////
 
     ////////////////////////////////////////Middle/////////////////////////////////////////////
-
     private JPanel middleNorth = new JPanel(new GridLayout(1,3,0,0));
-    private JPanel middleSouth = new JPanel(new GridLayout(1,3,0,0));
+    private JPanel middleSouth = new JPanel(new GridLayout(2,1,0,0));
 
-    //numberOfCharactersLabel goes in middleNorthMiddle
+    //NumberOfCharactersLabel goes in middleNorthMiddle
     private JLabel numberOfCharactersLabel = new JLabel("Number of Characters");
 
-    //middlemiddle contains spinner
-    private JPanel middleMiddleWest = new JPanel();
-    private JPanel middleMiddleMiddle = new JPanel();
-    private JPanel middleMiddleEast = new JPanel();
+    //MiddleNorthMiddle contains other components
+    private JPanel middleNorthWest = new JPanel();
+    private JPanel middleNorthMiddle = new JPanel();
+    private JPanel middleNorthEast = new JPanel();
 
     //Spinnermodel to add to spinner
-    private SpinnerModel spinnerModel =
-            new SpinnerNumberModel(8, //initial value
-                    8, //min
-                    Integer.MAX_VALUE, //max
-                    1);                //step
-
-    //Spinner to add to middleMiddleMiddle
+    private SpinnerModel spinnerModel = new SpinnerNumberModel(8,8, Integer.MAX_VALUE, 1);
+    //JSpinner to add to middleNorthMiddle
     private JSpinner spinner = new JSpinner(spinnerModel);
 
-    //middleSouth contains JLabel with generated password
-    private JPanel middleSouthWest = new JPanel();
-    private JPanel middleSouthMiddle = new JPanel(new GridLayout(2,1,0,0));
-    private JPanel middleSouthEast = new JPanel();
-
-    private JPanel middleMiddleSouthMiddleNorth = new JPanel(new GridLayout(1,1,2,2));
-    private JPanel middleMiddleSouthMiddleSouth = new JPanel();
-
-    //Label for generated password title in middleMiddleSouthMiddleNorth
+    private JPanel middleSouthNorth = new JPanel(new GridLayout(1,1,2,2));
+    //JLabel for generated password title in middleSouthNorth
     private JLabel passwordTitle = new JLabel("Generated Password");
 
-    //Label that will be used to display generated password in middleMiddleSouthMiddleSouth
+    private JPanel middleSouthSouth = new JPanel();
+    //JTextPane that will be used to display generated password in middleSouthSouth
     private JTextPane password = new JTextPane();
-
     //////////////////////////////////////End of Middle////////////////////////////////////////
 
-
     /////////////////////////////////////////South/////////////////////////////////////////////
-
     //four main parts of south Panel
     private JPanel southWest = new JPanel();
     private JPanel southMiddle = new JPanel(new GridLayout(1,1,0,0));
     private JPanel southEast = new JPanel();
 
     //southMiddle contains checkboxes
-    private JPanel southMiddleNorth = new JPanel();
+    private JPanel southMiddleMain = new JPanel();
 
     //Checkboxes will be placed in southMiddle
     private JCheckBox noSpecCharacters = new JCheckBox("No Special Characters");
     private JCheckBox noNumber = new JCheckBox("No Numbers");
     private JCheckBox noAmbigious = new JCheckBox("No Ambigious Characters");
-
-
     //////////////////////////////////////End of South////////////////////////////////////////
-
-
     //////////////////////////////////End of attributes///////////////////////////////////////
 
 
@@ -133,11 +114,12 @@ public class Gui extends JFrame{
         north.add(northSouth);
 
         //northNorth
+        titleLabel.setFont(new Font("Helvetica", Font.BOLD,30));
         northNorth.add(titleLabel);
 
         //northSouth
 
-        //add Listener to generateButton
+        //add Listener to generate JButton
         generate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -151,6 +133,7 @@ public class Gui extends JFrame{
             }
         });
 
+        //add button
         northSouth.add(generate);
 
         //middleside
@@ -158,50 +141,37 @@ public class Gui extends JFrame{
         middle.add(middleSouth);
 
         //middleNorth
-        middleNorth.add(middleMiddleWest);
-        middleNorth.add(middleMiddleMiddle);
-        middleNorth.add(middleMiddleEast);
+        middleNorth.add(middleNorthWest);
+        middleNorth.add(middleNorthMiddle);
+        middleNorth.add(middleNorthEast);
 
-        middleMiddleMiddle.add(numberOfCharactersLabel);
-        middleMiddleMiddle.add(spinner);
+        middleNorthMiddle.add(numberOfCharactersLabel);
+        middleNorthMiddle.add(spinner);
 
         //middleSouth
-        middleSouth.add(middleSouthEast);
-        middleSouth.add(middleSouthMiddle);
-        middleSouth.add(middleSouthWest);
+        middleSouth.add(middleSouthNorth);
+        middleSouth.add(middleSouthSouth);
 
-        middleSouthMiddle.add(middleMiddleSouthMiddleNorth);
-        middleSouthMiddle.add(middleMiddleSouthMiddleSouth);
-
-        middleMiddleSouthMiddleNorth.add(passwordTitle);
+        middleSouthNorth.add(passwordTitle);
         passwordTitle.setHorizontalAlignment(JLabel.CENTER);
 
         password.setEditable(false);
-        middleMiddleSouthMiddleSouth.add(password);
-        middleMiddleSouthMiddleSouth.setBackground(Color.WHITE);
+        middleSouthSouth.add(password);
+        middleSouthSouth.setBackground(Color.WHITE);
 
         //Southside
         south.add(southWest);
         south.add(southMiddle);
         south.add(southEast);
 
-        southMiddle.add(southMiddleNorth);
+        southMiddle.add(southMiddleMain);
 
-        southMiddleNorth.add(noSpecCharacters);
-        southMiddleNorth.add(noNumber);
-        southMiddleNorth.add(noAmbigious);
+        southMiddleMain.add(noSpecCharacters);
+        southMiddleMain.add(noNumber);
+        southMiddleMain.add(noAmbigious);
 
     }
 
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable(){
-          public void run(){
-            Controller controller = new Controller();
-            Gui frame = new Gui(controller);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-          }
-        });
-    }
+
 }

@@ -1,9 +1,17 @@
 package pwlogic;
 
+/**
+ * Controller class to provide MVC pattern for seperation of view (Gui) and model (PasswordMaker)
+ * @author roosebolton
+ **/
 public class Controller {
 
-    //atributes
-    private PassWordMaker passWordMaker = new PassWordMaker();
+    //Atributes
+    private PassWordMaker passWordMaker;
+
+    public Controller(){
+
+    }
 
     private String getPW(int pwLngth, boolean noSpec, boolean noNum, boolean noAmb){
         String answer = "";
