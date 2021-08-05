@@ -5,15 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import pwlogic.Controller;
+import pwlogic.PassWordMaker;
 
 /**
  * A gui class that presents an interface to the user for generating a password
- * @author roosebolton
+ * @author roosebolton github.com/roosebolton
  **/
-public class Gui extends JFrame{
-
+public class App extends JFrame{
+    ////////////////////////////////////////Attributes////////////////////////////////////////////
     //Non layout attributes
-    Controller controller;
+    private Controller controller;
 
     //attributes for layout
 
@@ -83,15 +84,16 @@ public class Gui extends JFrame{
     //////////////////////////////////End of attributes///////////////////////////////////////
 
 
-    /////////////////////////////////////Methods//////////////////////////////////////////////
+    /////////////////////////////////////Constructors//////////////////////////////////////////////
     /**
-     *Constructor
+     *Constructor, sets controller and initializes Gui
      **/
-    public Gui(Controller controller){
+    public App(Controller controller){
         super();
-        initialize();
         this.controller = controller;
+        initialize();
     }
+    /////////////////////////////////////End of constructors//////////////////////////////////////////////
 
     /**
      *Initializes gui for proper presentation upon start
@@ -109,7 +111,7 @@ public class Gui extends JFrame{
         mainPanel.add(middle);
         mainPanel.add(south);
 
-        //northside
+        //Northside
         north.add(northNorth);
         north.add(northSouth);
 
@@ -136,7 +138,7 @@ public class Gui extends JFrame{
         //add button
         northSouth.add(generate);
 
-        //middleside
+        //Middleside
         middle.add(middleNorth);
         middle.add(middleSouth);
 
@@ -172,6 +174,17 @@ public class Gui extends JFrame{
 
     }
 
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable(){
+            public void run(){
+                //Logic
+                PassWordMaker passWordMaker = new PassWordMaker();
+                //Gui
+                App frame = new App(new Controller(passWordMaker)); //controller
+                frame.setVisible(true);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            }
+        });
+    }
 
 }

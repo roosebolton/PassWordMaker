@@ -1,52 +1,49 @@
 package pwlogic;
 
 import java.util.concurrent.ThreadLocalRandom;
+
 /**
 *A class that generates random passwords of minimal length 8. With on/off options for: Special characters, numbers, ambigious characters.
 * @author roosebolton github.com/roosebolton
  **/
-
 public class PassWordMaker {
 
     /////////////////////////Attributes///////////////////////
-
     //Char array that excludes special characters that are better not used as first characters
     private char[] acnf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
 
-    //Char array that includes special characters
+    //Char array that includes all characters
     private char[] acf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
 
-    //Char array that does not include special characters
+    //Char array that excludes special characters
     private char[] nsc =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'};
 
-    //Char array that not includes numbers and is usable for first characters
+    //Char array that excludes numbers and is usable for first characters
     private char[] nnf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
 
-    //Char array that not includes numbers and is not usable for first characters
+    //Char array that excludes numbers and is not usable for first characters
     private char[] nnnf =  {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
 
-    //Char array that does not include special characters and numbers
+    //Char array that excludes special characters and numbers
     private char[] nsnnc  = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
-    //Char array that excludes special characters that are better not used as first characters and exludes ambigious characters
+    //Char array that excludes special characters that are better not used as first characters and ambiguous characters
     private char[] acnanf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
 
-    //Char array that includes special characters non ambigious usable as first chars
+    //Char array that excludes non ambiguous characters and is usable for first chars
     private char[] acnaf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
 
-    //Char array that excludes spcecial characters and ambigious characters
+    //Char array that excludes special characters and ambiguous characters
     private char[] nsnac =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9'};
 
-    //Char array that excludes special characters and numbers and ambigious characters
+    //Char array that excludes special characters and numbers and ambiguous characters
     private char[] nsnnnac  = {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
-    //Char array that excludes special characters that are better not used as first characters and exludes ambigious characters
+    //Char array that excludes special characters that are better not used as first characters and exludes ambiguous characters
     private char[] acnnnambnf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','=','-','.'};
 
-    //Char array that includes special characters non ambigious usable as first chars
+    //Char array that excludes numbers and includes non ambiguous characters, usable as first chars
     private char[] acnnnambf =  {'a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','!','(',')','?','[',']','_','`','~',';',':','@','#','$','%','^','&','*','+','='};
-
-
 
     //Length of the acnf array
     private int acnflength = acnf.length;
@@ -83,19 +80,26 @@ public class PassWordMaker {
 
     //Length of the acnnnambnf array
     private int acnnnambnflength = acnnnambnf.length;
-
     /////////////////////////End of attributes///////////////////////
 
 
-
     /////////////////////////Constructors///////////////////////
-
     /**
      *Empty constructor
      **/
     public PassWordMaker(){
     }
+    /////////////////////////End of constructors///////////////////////
+
+    /////////////////////////Methods///////////////////////
     //checks if passwordlength is >8
+
+    /**
+     *
+     * @param passwordlength
+     * @return Returns true if passwordlength is of acceptable length, throws IllegalArgumentException otherwise
+     * @throws IllegalArgumentException
+     */
     private boolean acceptableLength(int passwordlength)throws IllegalArgumentException{
         boolean result = true;
         if(passwordlength<8){
@@ -103,12 +107,10 @@ public class PassWordMaker {
         }
         return result;
     }
-    /////////////////////////End of Constructors///////////////////////
-
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that consists includes special characters
+     * @return Returns a char array for a password String that consists of all special characters, numbers an ambiguous characters
      * @throws IllegalArgumentException
      */
     private char[] allCharPassword(int pwlength)throws IllegalArgumentException{
@@ -144,6 +146,12 @@ public class PassWordMaker {
         return output;
     }
 
+    /**
+     *
+     * @param pwlength
+     * @return Returns a char array for a password String that excludes numbers
+     * @throws IllegalArgumentException
+     */
     private char[] noNumberPassword (int pwlength)throws IllegalArgumentException{
         acceptableLength(pwlength);
         char[] output = new char[pwlength];
@@ -192,7 +200,7 @@ public class PassWordMaker {
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that excludes ambigious characters
+     * @return Returns a char array for a password String that excludes ambiguous characters
      * @throws IllegalArgumentException
      */
     private char[] allCharsNonAmbPassword(int pwlength)throws IllegalArgumentException{
@@ -211,7 +219,7 @@ public class PassWordMaker {
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that excludes ambigious characters and special characters
+     * @return Returns a char array for a password String that excludes ambiguous characters and special characters
      * @throws IllegalArgumentException
      */
     private char[] nonCharNonAmbPassword(int pwlength)throws IllegalArgumentException{
@@ -227,7 +235,7 @@ public class PassWordMaker {
 
     /**
      * @param pwlength
-     * @return Returns a char array for a password String that excludes ambigious characters, special characters and numbers
+     * @return Returns a char array for a password String that excludes ambiguous characters, special characters and numbers
      * @throws IllegalArgumentException
      */
     private char[] nonCharNonNumNonAmbPassword(int pwlength)throws IllegalArgumentException{
@@ -240,10 +248,12 @@ public class PassWordMaker {
         }
         return output;
     }
+    /////////////////////////End of private methods///////////////////////
 
+    /////////////////////////Public methods///////////////////////
     /**
      * @param length
-     * @return Returns a password String of given length >8 that includes special characters
+     * @return Returns a password String that consists of all special characters, numbers an ambiguous characters
      * @throws IllegalArgumentException
      */
     public String allCharactersPW(int length)throws
@@ -254,7 +264,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes numbers
+     * @return Returns a password String that excludes numbers
      * @throws IllegalArgumentException
      */
     public String noNumberPW(int length)throws
@@ -265,7 +275,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes special characters
+     * @return Returns a password String that excludes special characters
      * @throws IllegalArgumentException
      */
     public String nonCharPasswordPW(int length)throws
@@ -276,7 +286,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes special characters and numbers
+     * @return Returns a password String that excludes special characters and numbers
      * @throws IllegalArgumentException
      */
     public String nonCharNonNumPasswordPW(int length)throws
@@ -287,7 +297,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes ambigious characters
+     * @return Returns a password String that excludes ambiguous characters
      * @throws IllegalArgumentException
      */
     public String allCharsNonAmbPW(int length)throws
@@ -298,7 +308,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes special and ambigious characters
+     * @return Returns a password String that excludes special characters and numbers
      * @throws IllegalArgumentException
      */
     public String nonCharNonAmbPW(int length)throws
@@ -309,7 +319,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes special characters, numbers and ambigious characters
+     * @return Returns a password String that excludes ambiguous characters, special characters and numbers
      * @throws IllegalArgumentException
      */
     public String nonCharNonNumNonAmbPW(int length)throws
@@ -320,7 +330,7 @@ public class PassWordMaker {
 
     /**
      * @param length
-     * @return Returns a password String of given length >8 that excludes special characters, numbers and ambigious characters
+     * @return Returns a password String that consists includes special characters
      * @throws IllegalArgumentException
      */
     public String allCharNoNumNoAmbPW(int length)throws
@@ -328,5 +338,7 @@ public class PassWordMaker {
         char[] output = allCharNoNumNoAmbPassword(length);
         return new String(output);
     }
+    /////////////////////////End of public methods///////////////////////
+
 
 }
